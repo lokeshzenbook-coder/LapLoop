@@ -1,0 +1,27 @@
+# Runtime
+.env
+.env.local
+.env.production
+data/
+uploads/
+*.log
+
+# Dependencies / build
+node_modules/
+.next/
+out/
+dist/
+vendor/
+
+# Go
+backend/bin/
+backend/data/
+
+# Docker
+docker-compose.override.yml
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
