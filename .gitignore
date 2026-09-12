@@ -25,3 +25,5 @@ docker-compose.override.yml
 .idea/
 .vscode/
 *.swp
+# TS
+*.tsbuildinfo
