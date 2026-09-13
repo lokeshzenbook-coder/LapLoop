@@ -27,6 +27,10 @@ func Router(
 	authHandler := NewAuthHandler(auth)
 	laptopHandler := NewLaptopHandler(laptops, &HandlerConfig{MaxUploadMB: cfg.Storage.MaxUploadMB})
 	meHandler := NewMeHandler(laptops)
+	placeholderHandler := NewPlaceholderHandler()
+
+	// Deterministic SVG placeholders for seeded listings (no external dependency).
+	r.Get("/placeholders/{seed}", placeholderHandler.ServeHTTP)
 
 	// Local-file uploads (dev provider).
 	if cfg.Storage.Provider == "local" {

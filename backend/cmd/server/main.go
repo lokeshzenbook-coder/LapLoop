@@ -59,7 +59,7 @@ func main() {
 
 	// Seed demo data on first boot.
 	if cfg.Seed {
-		if err := services.Seed(ctx, store); err != nil {
+		if err := services.Seed(ctx, store, cfg.PublicBaseURL); err != nil {
 			log.Printf("seed: %v", err)
 		}
 	}

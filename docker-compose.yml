@@ -48,6 +48,7 @@ services:
       S3_SECRET_KEY: minioadmin
       S3_BUCKET: laptop-images
       S3_PUBLIC_URL: http://localhost:9000
+      PUBLIC_BASE_URL: http://localhost:8080
       FRONTEND_ORIGIN: http://localhost:3000
       RATE_LIMIT_PER_MINUTE: "120"
       SEED: "true"

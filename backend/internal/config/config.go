@@ -13,6 +13,7 @@ type Config struct {
 	JWTTTLHours    int
 	Storage        Storage
 	FrontendOrigin string
+	PublicBaseURL  string // browser-reachable base URL of this API
 	RateLimit      int
 	Seed           bool
 }
@@ -37,6 +38,7 @@ func Load() Config {
 		JWTSecret:      get("JWT_SECRET", "dev-secret-change-me"),
 		JWTTTLHours:    getInt("JWT_TTL_HOURS", 168),
 		FrontendOrigin: get("FRONTEND_ORIGIN", "http://localhost:3000"),
+		PublicBaseURL:  strings.TrimRight(get("PUBLIC_BASE_URL", "http://localhost:8080"), "/"),
 		RateLimit:      getInt("RATE_LIMIT_PER_MINUTE", 120),
 		Seed:           getBool("SEED", false),
 		Storage: Storage{

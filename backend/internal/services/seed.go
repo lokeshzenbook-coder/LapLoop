@@ -13,7 +13,9 @@ import (
 
 // Seed inserts demo users and listings on first boot so the marketplace
 // is immediately browsable. Password for all demo accounts: password123.
-func Seed(ctx context.Context, store *repositories.Store) error {
+// baseURL is the browser-reachable API origin; seeded images are served as
+// self-hosted SVG placeholders from /placeholders/{seed}.
+func Seed(ctx context.Context, store *repositories.Store, baseURL string) error {
 	count, err := store.CountLaptops(ctx)
 	if err != nil {
 		return err
@@ -63,7 +65,7 @@ func Seed(ctx context.Context, store *repositories.Store) error {
 		{UserID: userIDs[1], Brand: "Acer", Model: "Swift 3", CPU: "AMD Ryzen 5 5500U", RAMGB: 8, StorageGB: 256, StorageType: "SSD", GPU: "AMD Radeon Graphics", Display: "14\" FHD TN, 1920x1080", Condition: "damaged", AgeYears: 4, BatteryHealth: 60, Price: 260, Location: "London, UK", Description: "Full disclosure: cracked screen glass (bottom corner) and worn battery. Works fine on an external monitor — make a great home server or budget fixer-upper.", Status: "active"},
 	}
 
-	picsumSeeds := []string{"laptop-mbp14", "laptop-x1c", "laptop-xps15", "laptop-zenbook",
+	placeholderSeeds := []string{"laptop-mbp14", "laptop-x1c", "laptop-xps15", "laptop-zenbook",
 		"laptop-air", "laptop-spectre", "laptop-framework", "laptop-mbp16", "laptop-precision", "laptop-swift3"}
 
 	for i, seed := range seeds {
@@ -71,10 +73,10 @@ func Seed(ctx context.Context, store *repositories.Store) error {
 		if err != nil {
 			return err
 		}
-		def := picsumSeeds[i%len(picsumSeeds)]
+		def := placeholderSeeds[i%len(placeholderSeeds)]
 		imgs := []string{
-			fmt.Sprintf("https://picsum.photos/seed/%s-1/900/675", def),
-			fmt.Sprintf("https://picsum.photos/seed/%s-2/900/675", def),
+			fmt.Sprintf("%s/placeholders/%s-1", baseURL, def),
+			fmt.Sprintf("%s/placeholders/%s-2", baseURL, def),
 		}
 		for j, url := range imgs {
 			img := &models.Image{LaptopID: id, URL: url, Position: j}
