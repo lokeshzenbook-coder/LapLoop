@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"os"
 	"path/filepath"
 	"sort"
@@ -19,17 +20,31 @@ type DB struct {
 func Connect(ctx context.Context, url string) (*DB, error) {
 	pool, err := pgxpool.New(ctx, url)
 	if err != nil {
-		return nil, fmt.Errorf("connect to postgres: %w", err)
+		return nil, describeConnectError(url, err)
 	}
+	var lastErr error
 	for i := 0; i < 10; i++ {
-		if err := pool.Ping(ctx); err == nil {
+		lastErr = pool.Ping(ctx)
+		if lastErr == nil {
 			return &DB{Pool: pool}, nil
-		} else if i == 9 {
-			return nil, fmt.Errorf("ping postgres: %w", err)
 		}
 		time.Sleep(time.Second)
 	}
-	return nil, fmt.Errorf("ping postgres: timeout")
+	return nil, describeConnectError(url, lastErr)
+}
+
+// describeConnectError wraps a failed Postgres connection with an actionable
+// hint so a missing or unreachable database is obvious instead of a raw
+// "connection refused" dial error.
+func describeConnectError(databaseURL string, cause error) error {
+	host := databaseURL
+	if u, err := url.Parse(databaseURL); err == nil {
+		host = u.Host
+	}
+	return fmt.Errorf(
+		"cannot reach PostgreSQL at %s: %w\nhint: start the database first, e.g. `docker compose up -d db`, or point DATABASE_URL at a running Postgres.",
+		host, cause,
+	)
 }
 
 // Migrate applies every *.sql file in dir, in lexical order, tracking

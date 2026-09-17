@@ -154,6 +154,14 @@ Storage runs as **MinIO/S3** (`STORAGE_PROVIDER=minio`) or plain **local disk**
 
 ## 🛠 Development without Docker
 
+PostgreSQL must be running and reachable first. Start just the database
+dependency, or point `DATABASE_URL` at your own Postgres:
+
+```bash
+# Start LapLoop's PostgreSQL (localhost:5432, marketplace/marketplace/marketplace)
+docker compose up -d db
+```
+
 **Backend:**
 
 ```bash
@@ -161,6 +169,9 @@ cd backend
 DATABASE_URL='postgres://marketplace:marketplace@localhost:5432/marketplace?sslmode=disable' \
 STORAGE_PROVIDER=local JWT_SECRET=dev go run ./cmd/server
 ```
+
+> If the backend exits with `connection refused` on port 5432, PostgreSQL is not
+> ready — run `docker compose up -d db` (or start your own Postgres) and retry.
 
 **Frontend:**
 
