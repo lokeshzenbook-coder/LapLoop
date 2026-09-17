@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./frontend/public/icon.svg" alt="LapLoop" width="96" />
+  <img src="https://raw.githubusercontent.com/lokeshzenbook-coder/LapLoop/main/frontend/public/icon.svg" alt="LapLoop" width="96" />
 </p>
 
 <h1 align="center">LapLoop</h1>
@@ -12,12 +12,8 @@
 </p>
 
 <p align="center">
-  <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js%2016-000000?style=flat-square&logo=nextdotjs&logoColor=white" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" />
-  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" />
-  <img alt="Go" src="https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white" />
-  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" />
-  <img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" />
+  <kbd>Next.js 16</kbd> <kbd>TypeScript</kbd> <kbd>Tailwind CSS</kbd>
+  <kbd>Go</kbd> <kbd>PostgreSQL</kbd> <kbd>Docker</kbd>
 </p>
 
 ---
